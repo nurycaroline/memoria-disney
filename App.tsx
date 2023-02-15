@@ -1,9 +1,12 @@
-import { Text, View } from 'react-native';
-
+import { SafeAreaView, Text, View } from 'react-native';
+import MemoryCard from './src/components/MemoryCard';
 export default function App() {
   return (
-    <View>
-      <Text>Hello</Text>
-    </View>
+    <SafeAreaView style={{
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}>
+      <MemoryCard princessName="bela" selected={true} visible={true} />
+    </SafeAreaView>
   );
 }
