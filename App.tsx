@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import Colors from './src/utils/colors';
 import Button from './src/components/Button';
 import Label from './src/components/Label';
@@ -20,8 +20,10 @@ export default function App() {
       <Button backgroundColor={Colors.purple}>
         <Label text="Novo" color={Colors.pink} />
       </Button>
-
-
     </SafeAreaView>
   );
 }
+function useFonts(arg0: { PrincessSofia: any; }): [any] {
+  throw new Error('Function not implemented.');
+}
+
