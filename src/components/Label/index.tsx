@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { Children } from 'react';
 import { useFonts, PrincessSofia_400Regular } from '@expo-google-fonts/princess-sofia';
 
 import * as S from './styles';
 
 type LabelProps = {
-	text: string
+	children: string
 	color: string
+	fontSize?: number
 }
 
-const Label = ({ text, color }: LabelProps) => {
+const Label = ({ children, color, fontSize = 14 }: LabelProps) => {
 	let [fontsLoaded] = useFonts({
 		PrincessSofia_400Regular,
 	});
@@ -22,10 +23,11 @@ const Label = ({ text, color }: LabelProps) => {
 			<S.Text
 				color={color}
 				style={{
-					fontFamily: 'PrincessSofia_400Regular'
+					fontFamily: 'PrincessSofia_400Regular',
+					fontSize
 				}}
 			>
-				{text}
+				{children}
 			</S.Text>
 		</S.Container>
 	)
