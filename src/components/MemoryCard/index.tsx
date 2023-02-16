@@ -28,7 +28,7 @@ enum PRINCESS_ENUM {
 type MemoryCardProps = {
 	princessName: keyof typeof PRINCESS_ENUM
 	selected: boolean
-	visible:boolean
+	visible: boolean
 }
 
 const PRINCESS_IMAGE: { [k: string]: ImageSourcePropType } = {
@@ -47,11 +47,13 @@ const MemoryCard = ({ princessName, selected, visible }: MemoryCardProps) => {
 
 	return (
 		<S.Container selected={selected} visible={visible}>
-			<S.Avatar
-				source={PRINCESS_IMAGE[princessName]}
-				selected={selected}
-				visible={visible}
-			/>
+			{
+				(selected || visible) && (
+					<S.Avatar
+						source={PRINCESS_IMAGE[princessName]}
+					/>
+				)
+			}
 		</S.Container>
 	)
 }

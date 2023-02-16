@@ -11,14 +11,32 @@ export default function App() {
       justifyContent: 'center'
     }}>
 
-      <MemoryCard princessName="bela" selected={true} visible={true} />
+      <Label fontSize={30} color={Colors.red}>Memória</Label>
+
+      <MemoryCard
+        princessName="bela"
+        selected={true}
+        visible={true}
+      />
+
+      <MemoryCard
+        princessName="bela"
+        selected={true}
+        visible={false}
+      />
+
+      <MemoryCard
+        princessName="bela"
+        selected={false}
+        visible={false}
+      />
 
       <Button backgroundColor={Colors.pink}>
-        <Label text="Reinciar" color={Colors.purple} />
+        <Label color={Colors.purple}>Reinciar</Label>
       </Button>
 
       <Button backgroundColor={Colors.purple}>
-        <Label text="Novo" color={Colors.pink} />
+        <Label color={Colors.pink}>Novo</Label>
       </Button>
     </SafeAreaView>
   );
