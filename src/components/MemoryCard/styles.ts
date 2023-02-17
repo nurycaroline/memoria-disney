@@ -14,7 +14,7 @@ export const Avatar = styled.Image`
 
 export const Container = styled.View<Memory>`
 	background-color: ${Colors.gray};
-	border-radius: 100%;
+	border-radius: 100px;
 
 	align-items: center;
 	justify-content: center;
