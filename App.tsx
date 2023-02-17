@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { LogBox } from 'react-native';
 import Colors from './src/utils/colors';
 import Button from './src/components/Button';
 import Label from './src/components/Label';
@@ -6,6 +6,8 @@ import MemoryCard from './src/components/MemoryCard';
 import Modal from './src/components/Modal';
 import { useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+LogBox.ignoreLogs(['Possible Unhandled Promise Rejection']);
 
 export default function App() {
   const [openMenu, setOpenMenu] = useState(false)
