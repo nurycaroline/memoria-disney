@@ -1,15 +1,16 @@
 import React from 'react';
+import { TouchableOpacityProps } from 'react-native';
 
 import * as S from './styles';
 
-type ButtonProps = {
+type ButtonProps = TouchableOpacityProps & {
 	children: JSX.Element
 	backgroundColor: string
 }
 
-const Button = ({ children, backgroundColor }: ButtonProps) => {
+const Button = ({ children, backgroundColor, ...rest }: ButtonProps) => {
 	return (
-		<S.Container backgroundColor={backgroundColor}>
+		<S.Container  {...rest} backgroundColor={backgroundColor}>
 			{children}
 		</S.Container>
 	);

@@ -4,7 +4,7 @@ type ContainerProps = {
 	backgroundColor: string
 }
 
-export const Container = styled.View<ContainerProps>`
+export const Container = styled.TouchableOpacity<ContainerProps>`
 	background-color: ${({ backgroundColor }) => backgroundColor};
 
 	width: 130px;
