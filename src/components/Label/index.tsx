@@ -6,10 +6,18 @@ import * as S from './styles';
 type LabelProps = {
 	children: string
 	color: string
+	textAlign?: 'center' | 'left' | 'right'
 	fontSize?: number
+	style?: any
 }
 
-const Label = ({ children, color, fontSize = 14 }: LabelProps) => {
+const Label = ({
+	children,
+	color,
+	fontSize = 16,
+	textAlign = 'left',
+	style
+}: LabelProps) => {
 	let [fontsLoaded] = useFonts({
 		PrincessSofia_400Regular,
 	});
@@ -19,12 +27,13 @@ const Label = ({ children, color, fontSize = 14 }: LabelProps) => {
 	}
 
 	return (
-		<S.Container>
+		<S.Container style={style}>
 			<S.Text
 				color={color}
 				style={{
 					fontFamily: 'PrincessSofia_400Regular',
-					fontSize
+					textAlign,
+					fontSize,
 				}}
 			>
 				{children}
