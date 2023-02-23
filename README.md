@@ -1,8 +1,8 @@
-# Memoria 
+# Memoria
 
 Jogo da memoria com o tema da disney
 
-# Stack
- 
+## Stack
+
 - React native
 - Typescript

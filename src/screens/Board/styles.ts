@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
-import Label from './components/Label';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+export const Container = styled(GestureHandlerRootView)`
+	flex: 1;
+`;
 
 export const Header = styled.View`
 	margin-top: 20px;
@@ -18,21 +22,4 @@ export const Footer = styled.View`
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-evenly;
-`
-
-export const ModalMenuContainer = styled.View`
-	align-items: center;
-	justify-content: space-evenly;
-	height: 250px;
-`
-
-export const ModalResultContainer = styled.View`
-	align-items: center;
-	justify-content: center;
-	gap: 20px;
-	height: 200px;
-`
-
-export const ModalResultContainerLabel = styled(Label)`
-	margin: 10px 0;
 `
