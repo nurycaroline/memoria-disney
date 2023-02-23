@@ -3,10 +3,14 @@ import Button from 'components/Button';
 import Label from 'components/Label';
 import Modal from 'components/Modal';
 import Colors from 'utils/colors';
-
+import { ModalizeProps } from 'react-native-modalize';
 import * as S from './styles';
 
-const ModalResul = ({ open, onClosed, children }) => {
+type ModalResulProps = ModalizeProps & {
+	open: boolean
+}
+
+const ModalResul = ({ open, onClosed, children }: ModalResulProps) => {
 	return (
 		<Modal
 			open={open}
@@ -39,7 +43,6 @@ const ModalResul = ({ open, onClosed, children }) => {
 				{children}
 			</S.ModalContainer>
 		</Modal>
-
 	)
 }
 

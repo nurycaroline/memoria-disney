@@ -3,10 +3,14 @@ import Button from 'components/Button';
 import Label from 'components/Label';
 import Modal from 'components/Modal';
 import Colors from 'utils/colors';
-
+import { ModalizeProps } from 'react-native-modalize';
 import * as S from './styles';
 
-const ModalMenu = ({ open, onClosed }) => {
+type ModalMenuProps = ModalizeProps & {
+	open: boolean
+}
+
+const ModalMenu = ({ open, onClosed }: ModalMenuProps) => {
 	return (
 		<Modal
 			open={open}
