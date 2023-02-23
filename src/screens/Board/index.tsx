@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import Button from '../../components/Button';
-import Label from '../../components/Label';
-import MemoryCard from '../../components/MemoryCard';
-import Colors from '../../utils/colors';
+import Button from 'components/Button';
+import Label from 'components/Label';
+import MemoryCard from 'components/MemoryCard';
+import Colors from 'utils/colors';
 import ModalMenu from './components/ModalMenu';
 import ModalResul from './components/ModalResult';
 

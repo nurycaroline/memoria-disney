@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components/native';
-import Colors from '../../utils/colors'
+import Colors from 'utils/colors'
 
 type Memory = {
 	selected: boolean

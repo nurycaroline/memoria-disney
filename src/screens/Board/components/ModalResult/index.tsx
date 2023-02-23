@@ -1,8 +1,8 @@
 import React from 'react';
-import Button from '../../../../components/Button';
-import Label from '../../../../components/Label';
-import Modal from '../../../../components/Modal';
-import Colors from '../../../../utils/colors';
+import Button from 'components/Button';
+import Label from 'components/Label';
+import Modal from 'components/Modal';
+import Colors from 'utils/colors';
 
 import * as S from './styles';
 

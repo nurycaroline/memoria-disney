@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import Label from '../../../../components/Label';
+import Label from 'components/Label';
 
 export const ModalContainer = styled.View`
 	align-items: center;
