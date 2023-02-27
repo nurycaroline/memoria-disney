@@ -116,7 +116,6 @@ const Board: React.FC = () => {
 		const selectedCards = imagesCards.filter((item) => item.selected)
 		if (selectedCards.length === 2) {
 			await new Promise(res => {
-				console.log('passei aqui')
 				setTimeout(res, 1000)
 			});
 			verifyEqualCards()
