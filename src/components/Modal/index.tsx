@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import Colors from 'utils/colors';
 import { Modalize, ModalizeProps } from 'react-native-modalize';
 
 type ModalProps = ModalizeProps & {
@@ -20,6 +21,9 @@ const Modal = ({ children, open, ...props }: ModalProps) => {
 		<Modalize
 			ref={modalizeRef}
 			adjustToContentHeight
+			overlayStyle={{
+				backgroundColor: Colors.purpleOpacity,
+			}}
 			{...props}
 		>
 			{children}

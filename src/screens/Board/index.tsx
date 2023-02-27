@@ -46,7 +46,7 @@ type ImagesCards = {
 
 const Board: React.FC = () => {
 	const [openMenu, setOpenMenu] = useState(false)
-	const [openModalVictory, setOpenModalVictory] = useState(false)
+	const [openModalVictory, setOpenModalVictory] = useState(true)
 	const [victories, setVictories] = useRecoilState(victoriesState)
 	const [defeats, setDefeats] = useRecoilState(defeatsState)
 

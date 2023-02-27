@@ -7,6 +7,21 @@ export const ModalContainer = styled.View`
 	height: 200px;
 `
 
-export const ModalContainerLabel = styled(Label)`
+export const ModalLabel = styled(Label)`
 	margin: 10px 0;
+	width: 100px;
+`
+
+export const ModalContainerLabels = styled.View``
+
+export const ContainerAnimationVictoryThophy = styled.View`
+	width: 120px;
+	height: 120px;
+`
+
+export const ContainerGroupAnimationLabels = styled.View`
+	flex-direction: row;
+	width: 100%;
+	justify-content: space-evenly;
+	align-items: center;
 `

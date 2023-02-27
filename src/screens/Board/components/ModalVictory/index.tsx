@@ -4,6 +4,8 @@ import Label from 'components/Label';
 import Modal from 'components/Modal';
 import Colors from 'utils/colors';
 import { ModalizeProps } from 'react-native-modalize';
+
+import AnimationVictoryTrophy from 'assets/animations/107653-trophy.json'
 import * as S from './styles';
 
 type ModalVictoryProps = ModalizeProps & {
@@ -13,7 +15,6 @@ type ModalVictoryProps = ModalizeProps & {
 const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 	return (
 		<Modal
-			overlayStyle={{ backgroundColor: Colors.purple }}
 			open={open}
 			onClosed={onClosed}
 			childrenStyle={{ height: 200 }}
@@ -28,18 +29,26 @@ const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 			}
 		>
 			<S.ModalContainer>
-				<S.ModalContainerLabel
-					color={Colors.purple}
-					fontSize={18}
-				>
-					Tempo: 0:00
-				</S.ModalContainerLabel>
-				<S.ModalContainerLabel
-					color={Colors.purple}
-					fontSize={18}
-				>
-					Movimentos: 6
-				</S.ModalContainerLabel>
+				<S.ContainerGroupAnimationLabels>
+					<S.ContainerAnimationVictoryThophy>
+						<Lottie source={AnimationVictoryTrophy} autoPlay loop />
+					</S.ContainerAnimationVictoryThophy>
+
+					<S.ModalContainerLabels>
+						<S.ModalLabel
+							color={Colors.purple}
+							fontSize={18}
+						>
+							Tempo: 0:00
+						</S.ModalLabel>
+						<S.ModalLabel
+							color={Colors.purple}
+							fontSize={18}
+						>
+							Movimentos: 6
+						</S.ModalLabel>
+					</S.ModalContainerLabels>
+				</S.ContainerGroupAnimationLabels>
 
 				{children}
 			</S.ModalContainer>
