@@ -12,7 +12,7 @@ export const Avatar = styled.Image`
 	height: 70px;
 `
 
-export const Container = styled.View<Memory>`
+export const Container = styled.TouchableOpacity<Memory>`
 	background-color: ${Colors.gray};
 	border-radius: 100px;
 

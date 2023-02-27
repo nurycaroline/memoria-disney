@@ -13,7 +13,7 @@ import tiana from 'assets/images/tiana.png'
 
 import * as S from './styles'
 
-enum PRINCESS_ENUM {
+export enum PRINCESS_ENUM {
 	adormecida = 'adormecida',
 	bela = 'bela',
 	branca = 'branca',
@@ -25,10 +25,11 @@ enum PRINCESS_ENUM {
 	tiana = 'tiana',
 }
 
-type MemoryCardProps = {
+type ButtonCardProps = {
 	princessName: keyof typeof PRINCESS_ENUM
 	selected: boolean
 	visible: boolean
+	onPress: () => void
 }
 
 const PRINCESS_IMAGE: { [k: string]: ImageSourcePropType } = {
@@ -43,19 +44,16 @@ const PRINCESS_IMAGE: { [k: string]: ImageSourcePropType } = {
 	tiana,
 }
 
-const MemoryCard = ({ princessName, selected, visible }: MemoryCardProps) => {
+const ButtonCard = ({ princessName, selected, visible, onPress }: ButtonCardProps) => (
+	<S.Container selected={selected} visible={visible} onPress={onPress}>
+		{
+			(selected || visible) && (
+				<S.Avatar
+					source={PRINCESS_IMAGE[princessName]}
+				/>
+			)
+		}
+	</S.Container>
+)
 
-	return (
-		<S.Container selected={selected} visible={visible}>
-			{
-				(selected || visible) && (
-					<S.Avatar
-						source={PRINCESS_IMAGE[princessName]}
-					/>
-				)
-			}
-		</S.Container>
-	)
-}
-
-export default MemoryCard;
+export default ButtonCard;

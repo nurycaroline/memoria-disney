@@ -1,7 +1,7 @@
 import React, { useCallback, useDebugValue, useEffect, useMemo, useState } from 'react';
 import Button from 'components/Button';
 import Label from 'components/Label';
-import MemoryCard, { PRINCESS_ENUM } from 'components/MemoryCard';
+import ButtonCard, { PRINCESS_ENUM } from 'components/ButtonCard';
 import Colors from 'utils/colors';
 import ModalMenu from './components/ModalMenu';
 import ModalResul from './components/ModalResult';
@@ -89,7 +89,7 @@ const Board: React.FC = () => {
 			<S.Board size={size}>
 				{
 					randomizedImages.map((image, index) => (
-						<MemoryCard
+						<ButtonCard
 							key={index}
 							princessName={image}
 							selected={true}
