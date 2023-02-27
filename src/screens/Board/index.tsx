@@ -3,6 +3,7 @@ import Button from 'components/Button';
 import Label from 'components/Label';
 import ButtonCard, { PRINCESS_ENUM } from 'components/ButtonCard';
 import Colors from 'utils/colors';
+import delay from 'utils/delay';
 import ModalMenu from './components/ModalMenu';
 import ModalResul from './components/ModalResult';
 import { defeatsState, sizeState, victoriesState } from 'atoms/gameState';
@@ -78,15 +79,11 @@ const Board: React.FC = () => {
 
 		if (selectedCards.length === 2) {
 			const [card1, card2] = selectedCards
-			if (card1.princessName === card2.princessName) {
-				card1.selected = false
-				card2.selected = false
-				card1.visible = true
-				card2.visible = true
-			} else {
-				card1.selected = false
-				card2.selected = false
-			}
+			card1.visible = card1.princessName === card2.princessName
+			card2.visible = card1.princessName === card2.princessName
+
+			card1.selected = false
+			card2.selected = false
 			setImagesCards(newImagesCards)
 
 			const visibleCards = newImagesCards.filter((item) => item.visible)
@@ -115,9 +112,7 @@ const Board: React.FC = () => {
 	const checkCards = async () => {
 		const selectedCards = imagesCards.filter((item) => item.selected)
 		if (selectedCards.length === 2) {
-			await new Promise(res => {
-				setTimeout(res, 1000)
-			});
+			await delay(500)
 			verifyEqualCards()
 		}
 	}
@@ -173,23 +168,25 @@ const Board: React.FC = () => {
 
 			<ModalMenu open={openMenu} onClosed={handleCloseMenu} />
 			<ModalResul open={openResult} onClosed={handleCloseResult}>
-				<Button
-					backgroundColor={Colors.purple}
-					onPress={() => {
-						setOpenResult(false)
-						setOpenMenu(true)
-					}}
-				>
-					<Label color={Colors.pink}>Outro tamanho</Label>
-				</Button>
-				<Button
-					backgroundColor={Colors.purple}
-					onPress={() => {
-						setOpenResult(false)
-					}}
-				>
-					<Label color={Colors.pink}>Continuar</Label>
-				</Button>
+				<S.ModalResultButtons>
+					<Button
+						backgroundColor={Colors.purple}
+						onPress={() => {
+							setOpenResult(false)
+							setOpenMenu(true)
+						}}
+					>
+						<Label color={Colors.pink}>Novo tamanho</Label>
+					</Button>
+					<Button
+						backgroundColor={Colors.pink}
+						onPress={() => {
+							setOpenResult(false)
+						}}
+					>
+						<Label color={Colors.purple}>Continuar</Label>
+					</Button>
+				</S.ModalResultButtons>
 			</ModalResul>
 		</S.Container>
 	)

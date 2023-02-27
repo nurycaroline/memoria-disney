@@ -3,8 +3,7 @@ import Label from 'components/Label';
 
 export const ModalContainer = styled.View`
 	align-items: center;
-	justify-content: center;
-	gap: 20px;
+	justify-content: space-around;
 	height: 200px;
 `
 

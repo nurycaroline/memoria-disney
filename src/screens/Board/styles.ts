@@ -34,3 +34,9 @@ export const Board = styled.View<{ size: number }>`
 	justify-content: space-evenly;
 	align-content: space-around;
 `
+
+export const ModalResultButtons = styled.View`
+	flex-direction: row;
+	justify-content: space-evenly;
+	width: 80%;
+`
