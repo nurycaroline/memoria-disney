@@ -35,7 +35,7 @@ export const Board = styled.View<{ size: number }>`
 	align-content: space-around;
 `
 
-export const ModalResultButtons = styled.View`
+export const ModalVictoryButtons = styled.View`
 	flex-direction: row;
 	justify-content: space-evenly;
 	width: 80%;

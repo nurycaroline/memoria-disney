@@ -1,18 +1,19 @@
 import React from 'react';
-import Button from 'components/Button';
+import Lottie from 'lottie-react-native';
 import Label from 'components/Label';
 import Modal from 'components/Modal';
 import Colors from 'utils/colors';
 import { ModalizeProps } from 'react-native-modalize';
 import * as S from './styles';
 
-type ModalResulProps = ModalizeProps & {
+type ModalVictoryProps = ModalizeProps & {
 	open: boolean
 }
 
-const ModalResul = ({ open, onClosed, children }: ModalResulProps) => {
+const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 	return (
 		<Modal
+			overlayStyle={{ backgroundColor: Colors.purple }}
 			open={open}
 			onClosed={onClosed}
 			childrenStyle={{ height: 200 }}
@@ -46,4 +47,4 @@ const ModalResul = ({ open, onClosed, children }: ModalResulProps) => {
 	)
 }
 
-export default ModalResul;
+export default ModalVictory;

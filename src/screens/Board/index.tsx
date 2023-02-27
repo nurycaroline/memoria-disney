@@ -5,7 +5,7 @@ import ButtonCard, { PRINCESS_ENUM } from 'components/ButtonCard';
 import Colors from 'utils/colors';
 import delay from 'utils/delay';
 import ModalMenu from './components/ModalMenu';
-import ModalResul from './components/ModalResult';
+import ModalVictory from './components/ModalVictory';
 import { defeatsState, sizeState, victoriesState } from 'atoms/gameState';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
@@ -46,7 +46,7 @@ type ImagesCards = {
 
 const Board: React.FC = () => {
 	const [openMenu, setOpenMenu] = useState(false)
-	const [openResult, setOpenResult] = useState(false)
+	const [openModalVictory, setOpenModalVictory] = useState(false)
 	const [victories, setVictories] = useRecoilState(victoriesState)
 	const [defeats, setDefeats] = useRecoilState(defeatsState)
 
@@ -59,7 +59,7 @@ const Board: React.FC = () => {
 	}
 
 	const handleCloseResult = () => {
-		setOpenResult(false)
+		setOpenModalVictory(false)
 	}
 
 	const handleReset = () => {
@@ -89,7 +89,7 @@ const Board: React.FC = () => {
 			const visibleCards = newImagesCards.filter((item) => item.visible)
 			if (visibleCards.length === (size * 2)) {
 				setVictories(victories + 1)
-				setOpenResult(true)
+				setOpenModalVictory(true)
 			}
 		}
 	}
@@ -167,12 +167,12 @@ const Board: React.FC = () => {
 			</S.Footer>
 
 			<ModalMenu open={openMenu} onClosed={handleCloseMenu} />
-			<ModalResul open={openResult} onClosed={handleCloseResult}>
-				<S.ModalResultButtons>
+			<ModalVictory open={openModalVictory} onClosed={handleCloseResult}>
+				<S.ModalVictoryButtons>
 					<Button
 						backgroundColor={Colors.purple}
 						onPress={() => {
-							setOpenResult(false)
+							setOpenModalVictory(false)
 							setOpenMenu(true)
 						}}
 					>
@@ -181,13 +181,13 @@ const Board: React.FC = () => {
 					<Button
 						backgroundColor={Colors.pink}
 						onPress={() => {
-							setOpenResult(false)
+							setOpenModalVictory(false)
 						}}
 					>
 						<Label color={Colors.purple}>Continuar</Label>
 					</Button>
-				</S.ModalResultButtons>
-			</ModalResul>
+				</S.ModalVictoryButtons>
+			</ModalVictory>
 		</S.Container>
 	)
 }
