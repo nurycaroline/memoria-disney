@@ -6,7 +6,6 @@ export const Container = styled(GestureHandlerRootView)`
 `;
 
 export const Header = styled.View`
-	margin-top: 20px;
 	justify-content: center;
 	align-items: center;
 `;

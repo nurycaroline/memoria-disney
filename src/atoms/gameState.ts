@@ -1,6 +1,4 @@
-import {
-	atom,
-} from 'recoil';
+import { atom } from 'recoil';
 
 export const sizeState = atom<3 | 6 | 9>({
 	key: 'sizeState',
@@ -9,7 +7,7 @@ export const sizeState = atom<3 | 6 | 9>({
 
 export const victoriesState = atom<number>({
 	key: 'victoriesState',
-	default: 0, 
+	default: 0,
 	// TODO: set sempre somando + 1
 });
 

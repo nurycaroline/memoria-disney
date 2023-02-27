@@ -1,4 +1,4 @@
-import React, { useCallback, useDebugValue, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Button from 'components/Button';
 import Label from 'components/Label';
 import ButtonCard, { PRINCESS_ENUM } from 'components/ButtonCard';
@@ -37,11 +37,19 @@ const imagesBySize = {
 	]
 }
 
+type ImagesCards = {
+	princessName: keyof typeof PRINCESS_ENUM
+	selected: boolean
+	visible: boolean
+}[]
+
 const Board: React.FC = () => {
 	const [openMenu, setOpenMenu] = useState(false)
 	const [openResult, setOpenResult] = useState(false)
 	const [victories, setVictories] = useRecoilState(victoriesState)
 	const [defeats, setDefeats] = useRecoilState(defeatsState)
+
+	const [imagesCards, setImagesCards] = useState<ImagesCards>([])
 
 	const size = useRecoilValue(sizeState)
 
@@ -53,15 +61,72 @@ const Board: React.FC = () => {
 		setOpenResult(false)
 	}
 
-
 	const handleReset = () => {
 		setDefeats(defeats + 1)
 	}
 
-	const randomizedImages = useMemo(() => {
-		return imagesBySize[size].concat(imagesBySize[size])
+	useEffect(() => {
+		setImagesCards(imagesBySize[size]
+			.concat(imagesBySize[size])
 			.sort(() => Math.random() - 0.5)
+			.map((image) => ({ princessName: image, selected: false, visible: false })))
 	}, [size, defeats, victories])
+
+	const verifyEqualCards = () => {
+		const newImagesCards = [...imagesCards]
+		const selectedCards = newImagesCards.filter((item) => item.selected)
+
+		if (selectedCards.length === 2) {
+			const [card1, card2] = selectedCards
+			if (card1.princessName === card2.princessName) {
+				card1.selected = false
+				card2.selected = false
+				card1.visible = true
+				card2.visible = true
+			} else {
+				card1.selected = false
+				card2.selected = false
+			}
+			setImagesCards(newImagesCards)
+
+			const visibleCards = newImagesCards.filter((item) => item.visible)
+			if (visibleCards.length === (size * 2)) {
+				setVictories(victories + 1)
+				setOpenResult(true)
+			}
+		}
+	}
+
+	const handleCardPress = async (indexCard: number) => {
+		const newImagesCards = [...imagesCards]
+
+		const selectedItem = newImagesCards[indexCard]
+		if (!selectedItem) {
+			throw new Error('Item not found')
+		}
+
+		const selectedCards = newImagesCards.filter((item) => item.selected)
+		if (selectedCards.length < 2) {
+			newImagesCards[indexCard].selected = true
+			setImagesCards(newImagesCards)
+		}
+	}
+
+	const checkCards = async () => {
+		const selectedCards = imagesCards.filter((item) => item.selected)
+		if (selectedCards.length === 2) {
+			await new Promise(res => {
+				console.log('passei aqui')
+				setTimeout(res, 1000)
+			});
+			verifyEqualCards()
+		}
+	}
+
+	useEffect(() => {
+		checkCards()
+	}, [imagesCards])
+
 
 	// TODO: colocar scroll no board
 	return (
@@ -88,23 +153,17 @@ const Board: React.FC = () => {
 
 			<S.Board size={size}>
 				{
-					randomizedImages.map((image, index) => (
+					imagesCards.map((item, index) => (
 						<ButtonCard
 							key={index}
-							princessName={image}
-							selected={true}
-							visible={true}
+							princessName={item.princessName}
+							selected={item.selected}
+							visible={item.visible}
+							onPress={() => handleCardPress(index)}
 						/>
 					))
 				}
 			</S.Board>
-
-			<Button
-				backgroundColor={Colors.purple}
-				onPress={() => setOpenResult(true)}
-			>
-				<Label color={Colors.pink}>RESULTADO</Label>
-			</Button>
 
 			<S.Footer>
 				<Label color={Colors.purple}>Tempo: 00:00</Label>
@@ -122,7 +181,15 @@ const Board: React.FC = () => {
 						setOpenMenu(true)
 					}}
 				>
-					<Label color={Colors.pink}>Novo</Label>
+					<Label color={Colors.pink}>Outro tamanho</Label>
+				</Button>
+				<Button
+					backgroundColor={Colors.purple}
+					onPress={() => {
+						setOpenResult(false)
+					}}
+				>
+					<Label color={Colors.pink}>Continuar</Label>
 				</Button>
 			</ModalResul>
 		</S.Container>
