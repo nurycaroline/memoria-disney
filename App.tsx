@@ -1,7 +1,12 @@
 import Board from './src/screens/Board';
+import {
+  RecoilRoot,
+} from 'recoil';
 
 export default function App() {
   return (
-    <Board/>
+    <RecoilRoot>
+      <Board />
+    </RecoilRoot>
   );
 }

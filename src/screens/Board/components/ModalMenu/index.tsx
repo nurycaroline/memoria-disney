@@ -5,12 +5,22 @@ import Modal from 'components/Modal';
 import Colors from 'utils/colors';
 import { ModalizeProps } from 'react-native-modalize';
 import * as S from './styles';
+import { useRecoilState } from 'recoil';
+import { sizeState, defeatsState } from 'atoms/gameState';
 
 type ModalMenuProps = ModalizeProps & {
 	open: boolean
 }
 
 const ModalMenu = ({ open, onClosed }: ModalMenuProps) => {
+	const [size, setSize] = useRecoilState(sizeState)
+	const [defeated, setDefeated] = useRecoilState(defeatsState)
+
+	const handleNewGame = (size: 3 | 6 | 9) => { 
+		setSize(size)
+		setDefeated(defeated + 1)
+	}
+
 	return (
 		<Modal
 			open={open}
@@ -21,13 +31,22 @@ const ModalMenu = ({ open, onClosed }: ModalMenuProps) => {
 			}
 		>
 			<S.ModalContainer>
-				<Button backgroundColor={Colors.pink}>
+				<Button
+					onPress={() => handleNewGame(3)}
+					backgroundColor={size === 3 ? Colors.gray : Colors.pink}
+				>
 					<Label color={Colors.purple}>3</Label>
 				</Button>
-				<Button backgroundColor={Colors.pink}>
+				<Button
+					onPress={() => handleNewGame(6)}
+					backgroundColor={size === 6 ? Colors.gray : Colors.pink}
+				>
 					<Label color={Colors.purple}>6</Label>
 				</Button>
-				<Button backgroundColor={Colors.pink}>
+				<Button
+					onPress={() => handleNewGame(9)}
+					backgroundColor={size === 9 ? Colors.gray : Colors.pink}
+				>
 					<Label color={Colors.purple}>9</Label>
 				</Button>
 			</S.ModalContainer>

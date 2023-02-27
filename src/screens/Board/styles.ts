@@ -19,7 +19,19 @@ export const HeaderButtons = styled.View`
 `
 
 export const Footer = styled.View`
-	flex-direction: row;
 	align-items: center;
 	justify-content: space-evenly;
+	align-content: space-between;
+	height: 120px;
+`
+
+export const Board = styled.View<{ size: number }>`
+	margin: 20px auto;
+	width: 70%;
+	height: ${({ size }) => size * 60}px;
+
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+	align-content: space-around;
 `

@@ -4,7 +4,7 @@ import { useFonts, PrincessSofia_400Regular } from '@expo-google-fonts/princess-
 import * as S from './styles';
 
 type LabelProps = {
-	children: string
+	children: React.ReactNode
 	color: string
 	textAlign?: 'center' | 'left' | 'right'
 	fontSize?: number

@@ -15,6 +15,9 @@
       "assets/*": [
         "src/assets/*"
       ],
+      "atoms/*": [
+        "src/atoms/*"
+      ],
     }
   },
   "extends": "expo/tsconfig.base"
