@@ -4,6 +4,7 @@ import Label from 'components/Label';
 import Modal from 'components/Modal';
 import Colors from 'utils/colors';
 import { ModalizeProps } from 'react-native-modalize';
+import { useTranslation } from 'react-i18next'
 
 import AnimationVictoryTrophy from 'assets/animations/107653-trophy.json'
 import * as S from './styles';
@@ -13,6 +14,8 @@ type ModalVictoryProps = ModalizeProps & {
 }
 
 const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
+	const { t: translation } = useTranslation()
+
 	return (
 		<Modal
 			open={open}
@@ -39,13 +42,13 @@ const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 							color={Colors.purple}
 							fontSize={18}
 						>
-							Tempo: 0:00
+							{translation('label.time')}: 0:00
 						</S.ModalLabel>
 						<S.ModalLabel
 							color={Colors.purple}
 							fontSize={18}
 						>
-							Movimentos: 6
+							{translation('label.moves')}: 6
 						</S.ModalLabel>
 					</S.ModalContainerLabels>
 				</S.ContainerGroupAnimationLabels>

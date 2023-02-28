@@ -1,0 +1,15 @@
+{
+	"title": "Memória",
+	"button": {
+		"newGame": "Novo Jogo",
+		"reset": "Reiniciar",
+		"continue": "Continuar"
+	},
+	"label": {
+		"moves": "Movimentos",
+		"victory": "Vitorias",
+		"time": "Tempo",
+		"defeat": "Derrota",
+		"sizes": "Tamanhos"
+	}
+}

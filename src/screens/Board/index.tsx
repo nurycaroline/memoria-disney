@@ -8,6 +8,7 @@ import ModalMenu from './components/ModalMenu';
 import ModalVictory from './components/ModalVictory';
 import { defeatsState, sizeState, victoriesState } from 'atoms/gameState';
 import { useRecoilState, useRecoilValue } from 'recoil';
+import { useTranslation } from 'react-i18next'
 
 import * as S from './styles';
 
@@ -46,13 +47,12 @@ type ImagesCards = {
 
 const Board: React.FC = () => {
 	const [openMenu, setOpenMenu] = useState(false)
-	const [openModalVictory, setOpenModalVictory] = useState(true)
+	const [openModalVictory, setOpenModalVictory] = useState(false)
 	const [victories, setVictories] = useRecoilState(victoriesState)
 	const [defeats, setDefeats] = useRecoilState(defeatsState)
-
 	const [imagesCards, setImagesCards] = useState<ImagesCards>([])
-
 	const size = useRecoilValue(sizeState)
+	const { t: translation } = useTranslation()
 
 	const handleCloseMenu = () => {
 		setOpenMenu(false)
@@ -126,21 +126,21 @@ const Board: React.FC = () => {
 	return (
 		<S.Container>
 			<S.Header>
-				<Label fontSize={50} color={Colors.red}>Memória</Label>
+				<Label fontSize={50} color={Colors.red}>{translation('title')}</Label>
 
 				<S.HeaderButtons>
 					<Button
 						backgroundColor={Colors.pink}
 						onPress={handleReset}
 					>
-						<Label color={Colors.purple}>Reinciar</Label>
+						<Label color={Colors.purple}>{translation('button.reset')}</Label>
 					</Button>
 
 					<Button
 						backgroundColor={Colors.purple}
 						onPress={() => setOpenMenu(true)}
 					>
-						<Label color={Colors.pink}>Novo</Label>
+						<Label color={Colors.pink}>{translation('button.newGame')}</Label>
 					</Button>
 				</S.HeaderButtons>
 			</S.Header>
@@ -160,10 +160,10 @@ const Board: React.FC = () => {
 			</S.Board>
 
 			<S.Footer>
-				<Label color={Colors.purple}>Tempo: 00:00</Label>
-				<Label color={Colors.purple}>Movimentos: 20</Label>
-				<Label color={Colors.purple}>Vitórias: {victories}</Label>
-				<Label color={Colors.purple}>Derrota: {defeats}</Label>
+				<Label color={Colors.purple}>{translation('label.time')}: 00:00</Label>
+				<Label color={Colors.purple}>{translation('label.moves')}: 20</Label>
+				<Label color={Colors.purple}>{translation('label.victory')}: {victories}</Label>
+				<Label color={Colors.purple}>{translation('label.defeat')}: {defeats}</Label>
 			</S.Footer>
 
 			<ModalMenu open={openMenu} onClosed={handleCloseMenu} />
@@ -176,7 +176,7 @@ const Board: React.FC = () => {
 							setOpenMenu(true)
 						}}
 					>
-						<Label color={Colors.pink}>Novo tamanho</Label>
+						<Label color={Colors.pink}>{translation('button.newGame')}</Label>
 					</Button>
 					<Button
 						backgroundColor={Colors.pink}
@@ -184,7 +184,7 @@ const Board: React.FC = () => {
 							setOpenModalVictory(false)
 						}}
 					>
-						<Label color={Colors.purple}>Continuar</Label>
+						<Label color={Colors.purple}>{translation('button.continue')}</Label>
 					</Button>
 				</S.ModalVictoryButtons>
 			</ModalVictory>

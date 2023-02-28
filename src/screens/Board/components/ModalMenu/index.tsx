@@ -7,6 +7,7 @@ import { ModalizeProps } from 'react-native-modalize';
 import * as S from './styles';
 import { useRecoilState } from 'recoil';
 import { sizeState, defeatsState } from 'atoms/gameState';
+import { useTranslation } from 'react-i18next'
 
 type ModalMenuProps = ModalizeProps & {
 	open: boolean
@@ -15,8 +16,9 @@ type ModalMenuProps = ModalizeProps & {
 const ModalMenu = ({ open, onClosed }: ModalMenuProps) => {
 	const [size, setSize] = useRecoilState(sizeState)
 	const [defeated, setDefeated] = useRecoilState(defeatsState)
+	const { t: translation } = useTranslation()
 
-	const handleNewGame = (size: 3 | 6 | 9) => { 
+	const handleNewGame = (size: 3 | 6 | 9) => {
 		setSize(size)
 		setDefeated(defeated + 1)
 	}
@@ -27,7 +29,13 @@ const ModalMenu = ({ open, onClosed }: ModalMenuProps) => {
 			onClosed={onClosed}
 			childrenStyle={{ height: 250 }}
 			HeaderComponent={
-				<Label textAlign='center' color={Colors.purple} fontSize={28}>Tamanho:</Label>
+				<Label
+					textAlign='center'
+					color={Colors.purple}
+					fontSize={28}
+				>
+					{translation('label.sizes')}:
+				</Label>
 			}
 		>
 			<S.ModalContainer>

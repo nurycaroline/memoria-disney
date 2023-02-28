@@ -1,0 +1,15 @@
+{
+	"title": "Memory",
+	"button": {
+		"newGame": "New Game",
+		"reset": "Reset",
+		"continue": "Continue"
+	},
+	"label": {
+		"moves": "Moves",
+		"victory": "Victory",
+		"time": "Time",
+		"defeat": "Defeat",
+		"sizes": "Sizes"
+	}
+}
