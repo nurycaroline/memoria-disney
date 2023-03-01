@@ -21,6 +21,7 @@ const ModalMenu = ({ open, onClosed }: ModalMenuProps) => {
 	const handleNewGame = (size: 3 | 6 | 9) => {
 		setSize(size)
 		setDefeated(defeated + 1)
+		onClosed?.()
 	}
 
 	return (

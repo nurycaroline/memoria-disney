@@ -8,11 +8,14 @@ export const sizeState = atom<3 | 6 | 9>({
 export const victoriesState = atom<number>({
 	key: 'victoriesState',
 	default: 0,
-	// TODO: set sempre somando + 1
 });
 
 export const defeatsState = atom<number>({
 	key: 'defeatsState',
 	default: 0,
-	// TODO: set sempre somando + 1
+});
+
+export const movesState = atom<number>({
+	key: 'movesState',
+	default: 0,
 });

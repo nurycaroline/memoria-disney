@@ -8,6 +8,8 @@ import { useTranslation } from 'react-i18next'
 
 import AnimationVictoryTrophy from 'assets/animations/107653-trophy.json'
 import * as S from './styles';
+import { useRecoilValue } from 'recoil';
+import { movesState } from 'atoms/gameState';
 
 type ModalVictoryProps = ModalizeProps & {
 	open: boolean
@@ -15,6 +17,8 @@ type ModalVictoryProps = ModalizeProps & {
 
 const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 	const { t: translation } = useTranslation()
+	const moves = useRecoilValue(movesState)
+
 
 	return (
 		<Modal
@@ -48,7 +52,7 @@ const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 							color={Colors.purple}
 							fontSize={18}
 						>
-							{translation('label.moves')}: 6
+							{translation('label.moves')}: {moves}
 						</S.ModalLabel>
 					</S.ModalContainerLabels>
 				</S.ContainerGroupAnimationLabels>

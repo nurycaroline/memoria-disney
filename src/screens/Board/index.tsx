@@ -6,7 +6,7 @@ import Colors from 'utils/colors';
 import delay from 'utils/delay';
 import ModalMenu from './components/ModalMenu';
 import ModalVictory from './components/ModalVictory';
-import { defeatsState, sizeState, victoriesState } from 'atoms/gameState';
+import { defeatsState, movesState, sizeState, victoriesState } from 'atoms/gameState';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next'
 
@@ -48,10 +48,13 @@ type ImagesCards = {
 const Board: React.FC = () => {
 	const [openMenu, setOpenMenu] = useState(false)
 	const [openModalVictory, setOpenModalVictory] = useState(false)
+	const [imagesCards, setImagesCards] = useState<ImagesCards>([])
+
 	const [victories, setVictories] = useRecoilState(victoriesState)
 	const [defeats, setDefeats] = useRecoilState(defeatsState)
-	const [imagesCards, setImagesCards] = useState<ImagesCards>([])
+	const [moves, setMoves] = useRecoilState(movesState)
 	const size = useRecoilValue(sizeState)
+
 	const { t: translation } = useTranslation()
 
 	const handleCloseMenu = () => {
@@ -66,12 +69,22 @@ const Board: React.FC = () => {
 		setDefeats(defeats + 1)
 	}
 
-	useEffect(() => {
+	const handleContinue = () => {
+		setOpenModalVictory(false)
+		randomizeImages()
+	}
+
+	const randomizeImages = () => {
 		setImagesCards(imagesBySize[size]
 			.concat(imagesBySize[size])
 			.sort(() => Math.random() - 0.5)
 			.map((image) => ({ princessName: image, selected: false, visible: false })))
-	}, [size, defeats, victories])
+	}
+
+	useEffect(() => {
+		randomizeImages()
+		setMoves(0)
+	}, [size, defeats])
 
 	const verifyEqualCards = () => {
 		const newImagesCards = [...imagesCards]
@@ -121,7 +134,6 @@ const Board: React.FC = () => {
 		checkCards()
 	}, [imagesCards])
 
-
 	// TODO: colocar scroll no board
 	return (
 		<S.Container>
@@ -146,27 +158,29 @@ const Board: React.FC = () => {
 			</S.Header>
 
 			<S.Board size={size}>
-				{
-					imagesCards.map((item, index) => (
-						<ButtonCard
-							key={index}
-							princessName={item.princessName}
-							selected={item.selected}
-							visible={item.visible}
-							onPress={() => handleCardPress(index)}
-						/>
-					))
-				}
+				{imagesCards.map((item, index) => (
+					<ButtonCard
+						key={index}
+						princessName={item.princessName}
+						selected={item.selected}
+						visible={item.visible}
+						onPress={() => {
+							handleCardPress(index)
+							setMoves(moves + 1)
+						}}
+					/>
+				))}
 			</S.Board>
 
 			<S.Footer>
 				<Label color={Colors.purple}>{translation('label.time')}: 00:00</Label>
-				<Label color={Colors.purple}>{translation('label.moves')}: 20</Label>
+				<Label color={Colors.purple}>{translation('label.moves')}: {moves}</Label>
 				<Label color={Colors.purple}>{translation('label.victory')}: {victories}</Label>
 				<Label color={Colors.purple}>{translation('label.defeat')}: {defeats}</Label>
 			</S.Footer>
 
 			<ModalMenu open={openMenu} onClosed={handleCloseMenu} />
+
 			<ModalVictory open={openModalVictory} onClosed={handleCloseResult}>
 				<S.ModalVictoryButtons>
 					<Button
@@ -180,9 +194,7 @@ const Board: React.FC = () => {
 					</Button>
 					<Button
 						backgroundColor={Colors.pink}
-						onPress={() => {
-							setOpenModalVictory(false)
-						}}
+						onPress={handleContinue}
 					>
 						<Label color={Colors.purple}>{translation('button.continue')}</Label>
 					</Button>
