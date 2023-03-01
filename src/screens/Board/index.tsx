@@ -134,7 +134,6 @@ const Board: React.FC = () => {
 		checkCards()
 	}, [imagesCards])
 
-	// TODO: colocar scroll no board
 	return (
 		<S.Container>
 			<S.Header>
@@ -157,7 +156,17 @@ const Board: React.FC = () => {
 				</S.HeaderButtons>
 			</S.Header>
 
-			<S.Board size={size}>
+			<S.Board
+				size={size}
+				centerContent
+				contentContainerStyle={{
+					flexDirection: 'row',
+					flexWrap: 'wrap',
+					justifyContent: 'center',
+					flexGrow: 1,
+					alignContent: 'center',
+				}}
+			>
 				{imagesCards.map((item, index) => (
 					<ButtonCard
 						key={index}

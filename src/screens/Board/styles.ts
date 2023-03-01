@@ -24,15 +24,10 @@ export const Footer = styled.View`
 	height: 120px;
 `
 
-export const Board = styled.View<{ size: number }>`
+export const Board = styled.ScrollView<{ size: number }>`
 	margin: 20px auto;
 	width: 70%;
 	height: ${({ size }) => size * 60}px;
-
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-evenly;
-	align-content: space-around;
 `
 
 export const ModalVictoryButtons = styled.View`
