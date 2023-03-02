@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 import AnimationVictoryTrophy from 'assets/animations/107653-trophy.json'
 import * as S from './styles';
 import { useRecoilValue } from 'recoil';
-import { movesState } from 'atoms/gameState';
+import { movesState, durationSelector } from 'atoms/gameState';
 
 type ModalVictoryProps = ModalizeProps & {
 	open: boolean
@@ -18,7 +18,7 @@ type ModalVictoryProps = ModalizeProps & {
 const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 	const { t: translation } = useTranslation()
 	const moves = useRecoilValue(movesState)
-
+	const duration = useRecoilValue(durationSelector)
 
 	return (
 		<Modal
@@ -46,7 +46,7 @@ const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 							color={Colors.purple}
 							fontSize={18}
 						>
-							{translation('label.time')}: 0:00
+							{translation('label.time')}: {duration}
 						</S.ModalLabel>
 						<S.ModalLabel
 							color={Colors.purple}

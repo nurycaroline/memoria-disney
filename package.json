@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "@expo-google-fonts/princess-sofia": "^0.2.2",
+    "date-fns": "^2.29.3",
     "expo": "^47.0.0",
     "expo-font": "~11.0.1",
     "expo-localization": "~14.0.0",

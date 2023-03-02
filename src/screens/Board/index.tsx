@@ -6,11 +6,12 @@ import Colors from 'utils/colors';
 import delay from 'utils/delay';
 import ModalMenu from './components/ModalMenu';
 import ModalVictory from './components/ModalVictory';
-import { defeatsState, movesState, sizeState, victoriesState } from 'atoms/gameState';
+import { defeatsState, durationSelector, durationState, movesState, sizeState, victoriesState } from 'atoms/gameState';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next'
 
 import * as S from './styles';
+import { intervalToDuration } from 'date-fns';
 
 const imagesBySize = {
 	3: [
@@ -49,20 +50,21 @@ const Board: React.FC = () => {
 	const [openMenu, setOpenMenu] = useState(false)
 	const [openModalVictory, setOpenModalVictory] = useState(false)
 	const [imagesCards, setImagesCards] = useState<ImagesCards>([])
+	const [timerInterval, setTimerInterval] = useState<NodeJS.Timer | null>(null)
+	const [timer, setTimer] = useState<Date>()
 
 	const [victories, setVictories] = useRecoilState(victoriesState)
 	const [defeats, setDefeats] = useRecoilState(defeatsState)
 	const [moves, setMoves] = useRecoilState(movesState)
+	const [_, setDuration] = useRecoilState(durationState)
+	const duration = useRecoilValue(durationSelector)
+
 	const size = useRecoilValue(sizeState)
 
 	const { t: translation } = useTranslation()
 
 	const handleCloseMenu = () => {
 		setOpenMenu(false)
-	}
-
-	const handleCloseResult = () => {
-		setOpenModalVictory(false)
 	}
 
 	const handleReset = () => {
@@ -72,6 +74,8 @@ const Board: React.FC = () => {
 	const handleContinue = () => {
 		setOpenModalVictory(false)
 		randomizeImages()
+		setDuration(null)
+		setMoves(0)
 	}
 
 	const randomizeImages = () => {
@@ -80,11 +84,6 @@ const Board: React.FC = () => {
 			.sort(() => Math.random() - 0.5)
 			.map((image) => ({ princessName: image, selected: false, visible: false })))
 	}
-
-	useEffect(() => {
-		randomizeImages()
-		setMoves(0)
-	}, [size, defeats])
 
 	const verifyEqualCards = () => {
 		const newImagesCards = [...imagesCards]
@@ -103,6 +102,12 @@ const Board: React.FC = () => {
 			if (visibleCards.length === (size * 2)) {
 				setVictories(victories + 1)
 				setOpenModalVictory(true)
+				if (timerInterval) {
+					clearInterval(timerInterval)
+				}
+				setTimerInterval(null)
+				setTimer(undefined)
+	
 			}
 		}
 	}
@@ -129,6 +134,28 @@ const Board: React.FC = () => {
 			verifyEqualCards()
 		}
 	}
+
+	const handleStarTimer = () => {
+		if (timerInterval === null) {
+			const myTimer = timer || new Date()
+			setTimer(myTimer)
+			
+			setTimerInterval(
+				setInterval(() => {
+					const duracao = intervalToDuration({
+						start: myTimer,
+						end: new Date()
+					})
+					setDuration(duracao)
+				}, 1000)
+			)
+		}
+	}
+
+	useEffect(() => {
+		randomizeImages()
+		setMoves(0)
+	}, [size, defeats])
 
 	useEffect(() => {
 		checkCards()
@@ -176,13 +203,14 @@ const Board: React.FC = () => {
 						onPress={() => {
 							handleCardPress(index)
 							setMoves(moves + 1)
+							handleStarTimer()
 						}}
 					/>
 				))}
 			</S.Board>
 
 			<S.Footer>
-				<Label color={Colors.purple}>{translation('label.time')}: 00:00</Label>
+				<Label color={Colors.purple}>{translation('label.time')}: {duration}</Label>
 				<Label color={Colors.purple}>{translation('label.moves')}: {moves}</Label>
 				<Label color={Colors.purple}>{translation('label.victory')}: {victories}</Label>
 				<Label color={Colors.purple}>{translation('label.defeat')}: {defeats}</Label>
@@ -190,13 +218,14 @@ const Board: React.FC = () => {
 
 			<ModalMenu open={openMenu} onClosed={handleCloseMenu} />
 
-			<ModalVictory open={openModalVictory} onClosed={handleCloseResult}>
+			<ModalVictory open={openModalVictory} onClosed={handleContinue}>
 				<S.ModalVictoryButtons>
 					<Button
 						backgroundColor={Colors.purple}
 						onPress={() => {
 							setOpenModalVictory(false)
 							setOpenMenu(true)
+							setDuration(null)
 						}}
 					>
 						<Label color={Colors.pink}>{translation('button.newGame')}</Label>
