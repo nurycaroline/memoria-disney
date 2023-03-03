@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 import { useFonts, PrincessSofia_400Regular } from '@expo-google-fonts/princess-sofia';
 
 import * as S from './styles';
