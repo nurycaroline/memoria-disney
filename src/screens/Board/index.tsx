@@ -79,6 +79,12 @@ const Board: React.FC = () => {
 	}
 
 	const randomizeImages = () => {
+		if (timerInterval) {
+			clearInterval(timerInterval)
+		}
+		setTimerInterval(null)
+		setTimer(undefined)
+		setDuration(null)
 		setImagesCards(imagesBySize[size]
 			.concat(imagesBySize[size])
 			.sort(() => Math.random() - 0.5)
@@ -107,7 +113,6 @@ const Board: React.FC = () => {
 				}
 				setTimerInterval(null)
 				setTimer(undefined)
-	
 			}
 		}
 	}

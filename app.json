@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Memoria",
+    "slug": "my-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "resizeMode": "contain",
+      "backgroundColor": "#E4CBCB",
+			"image": "./src/assets/animations/112589-castle.gif"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "*/"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#E4CBCB"
+      }
+    },
+    "web": {
+    }
+  }
+}

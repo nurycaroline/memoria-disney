@@ -22,6 +22,8 @@ export const Container = styled.TouchableOpacity<Memory>`
 	width: 75px;
 	height: 75px;
 
+	margin: 5px;
+
 	${({ selected }) => selected && css`
 		background-color: ${Colors.red};
 	`}
