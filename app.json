@@ -7,7 +7,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "resizeMode": "contain",
-      "backgroundColor": "#E4CBCB",
+      "backgroundColor": "#ffffff",
       "image": "./src/assets/animations/112589-castle.gif"
     },
     "icon": "./src/assets/icon.png",
