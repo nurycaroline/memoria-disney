@@ -1,15 +1,16 @@
 {
   "expo": {
     "name": "Memoria",
-    "slug": "my-app",
+    "slug": "memoria",
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#E4CBCB",
-			"image": "./src/assets/animations/112589-castle.gif"
+      "image": "./src/assets/animations/112589-castle.gif"
     },
+    "icon": "./src/assets/icon.png",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -21,10 +22,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E4CBCB"
+        "backgroundColor": "#75728D",
+        "foregroundImage": "./src/assets/adaptive-icon.png"
       }
     },
-    "web": {
-    }
+    "web": {}
   }
 }
