@@ -1,7 +1,7 @@
 import Board from './src/screens/Board';
 import { RecoilRoot } from 'recoil';
 import { SafeAreaView } from 'react-native';
-
+import { Audio } from 'expo-av';
 import { useCallback, useEffect, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 
@@ -10,19 +10,20 @@ SplashScreen.preventAutoHideAsync();
 import './src/i18n'
 
 export default function App() {
-  const [appIsReady, setAppIsReady] = useState(false);
+  const [appIsReady, setAppIsReady] = useState(false)
+  const [music, setMusic] = useState<Audio.Sound>()
 
   useEffect(() => {
     async function prepare() {
       try {
-        // Pre-load fonts, make any API calls you need to do here
-        // Artificially delay for two seconds to simulate a slow loading
-        // experience. Please remove this if you copy and paste the code!
+        const { sound } = await Audio.Sound.createAsync(
+          require('./src/assets/music/All_Kinds_Of_Magic/music.mp3')
+        )
+        setMusic(sound);
         await new Promise(resolve => setTimeout(resolve, 3000));
       } catch (e) {
         console.warn(e);
       } finally {
-        // Tell the application to render
         setAppIsReady(true);
       }
     }
@@ -33,6 +34,7 @@ export default function App() {
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();
+      await music?.playAsync();
     }
   }, [appIsReady]);
 
