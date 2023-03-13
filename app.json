@@ -7,7 +7,7 @@
     "userInterfaceStyle": "light",
     "splash": {
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff",
+      "backgroundColor": "#75728D",
       "image": "./src/assets/icon.png"
     },
     "updates": {

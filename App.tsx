@@ -1,11 +1,11 @@
-import Board from './src/screens/Board';
-import { RecoilRoot } from 'recoil';
-import { SafeAreaView } from 'react-native';
-import { Audio } from 'expo-av';
-import { useCallback, useEffect, useState } from 'react';
-import * as SplashScreen from 'expo-splash-screen';
+import Board from './src/screens/Board'
+import { RecoilRoot } from 'recoil'
+import { SafeAreaView } from 'react-native'
+import { Audio } from 'expo-av'
+import { useCallback, useEffect, useState } from 'react'
+import * as SplashScreen from 'expo-splash-screen'
 
-SplashScreen.preventAutoHideAsync();
+SplashScreen.preventAutoHideAsync()
 
 import './src/i18n'
 
@@ -19,27 +19,27 @@ export default function App() {
         const { sound } = await Audio.Sound.createAsync(
           require('./src/assets/music/All_Kinds_Of_Magic/music.mp3')
         )
-        setMusic(sound);
-        await new Promise(resolve => setTimeout(resolve, 3000));
+        setMusic(sound)
+        await new Promise(resolve => setTimeout(resolve, 3000))
       } catch (e) {
-        console.warn(e);
+        console.warn(e)
       } finally {
-        setAppIsReady(true);
+        setAppIsReady(true)
       }
     }
 
-    prepare();
-  }, []);
+    prepare()
+  }, [])
 
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
-      await SplashScreen.hideAsync();
-      await music?.playAsync();
+      await SplashScreen.hideAsync()
+      // await music?.playAsync()
     }
-  }, [appIsReady]);
+  }, [appIsReady])
 
   if (!appIsReady) {
-    return null;
+    return null
   }
 
   return (
@@ -48,5 +48,5 @@ export default function App() {
         <Board />
       </SafeAreaView>
     </RecoilRoot>
-  );
+  )
 }
