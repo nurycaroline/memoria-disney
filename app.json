@@ -8,9 +8,8 @@
     "splash": {
       "resizeMode": "contain",
       "backgroundColor": "#ffffff",
-      "image": "./src/assets/animations/112589-castle.gif"
+      "image": "./src/assets/icon.png"
     },
-    "icon": "./src/assets/icon.png",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -18,14 +17,25 @@
       "*/"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.memoria",
+      "buildNumber": "1.0.0"
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#75728D",
         "foregroundImage": "./src/assets/adaptive-icon.png"
-      }
+      },
+      "versionCode": 1,
+      "package": "com.memoria"
     },
-    "web": {}
+    "web": {
+      "favicon": "./src/assets/icon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "555d9e42-4e7b-4873-b1f2-b98a22c07d67"
+      }
+    }
   }
 }
