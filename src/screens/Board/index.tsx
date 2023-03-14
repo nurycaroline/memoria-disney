@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'components/Button';
 import Label from 'components/Label';
-import ButtonCard, { PRINCESS_ENUM } from 'components/ButtonCard';
-import Colors from 'utils/colors';
+import ButtonCard, { PRINCESS_ENUM, VILLAIN_ENUM } from 'components/ButtonCard';
 import delay from 'utils/delay';
 import ModalMenu from './components/ModalMenu';
 import ModalVictory from './components/ModalVictory';
@@ -12,36 +11,12 @@ import { useTranslation } from 'react-i18next'
 
 import * as S from './styles';
 import { intervalToDuration } from 'date-fns';
+import { princessBySize, villainBySize } from './imagesBySize';
+import { themeColorsState, themeState } from 'atoms/theme';
 
-const imagesBySize = {
-	3: [
-		PRINCESS_ENUM.adormecida,
-		PRINCESS_ENUM.bela,
-		PRINCESS_ENUM.branca,
-	],
-	6: [
-		PRINCESS_ENUM.adormecida,
-		PRINCESS_ENUM.cinderela,
-		PRINCESS_ENUM.bela,
-		PRINCESS_ENUM.merida,
-		PRINCESS_ENUM.branca,
-		PRINCESS_ENUM.mulan,
-	],
-	9: [
-		PRINCESS_ENUM.adormecida,
-		PRINCESS_ENUM.cinderela,
-		PRINCESS_ENUM.bela,
-		PRINCESS_ENUM.merida,
-		PRINCESS_ENUM.branca,
-		PRINCESS_ENUM.mulan,
-		PRINCESS_ENUM.sereia,
-		PRINCESS_ENUM.sininho,
-		PRINCESS_ENUM.tiana,
-	]
-}
 
 type ImagesCards = {
-	princessName: keyof typeof PRINCESS_ENUM
+	characterName: keyof typeof PRINCESS_ENUM | keyof typeof VILLAIN_ENUM
 	selected: boolean
 	visible: boolean
 }[]
@@ -57,9 +32,11 @@ const Board: React.FC = () => {
 	const [defeats, setDefeats] = useRecoilState(defeatsState)
 	const [moves, setMoves] = useRecoilState(movesState)
 	const [_, setDuration] = useRecoilState(durationState)
-	const duration = useRecoilValue(durationSelector)
 
+	const duration = useRecoilValue(durationSelector)
 	const size = useRecoilValue(sizeState)
+	const theme = useRecoilValue(themeState)
+	const themeColor = useRecoilValue(themeColorsState)
 
 	const { t: translation } = useTranslation()
 
@@ -85,10 +62,14 @@ const Board: React.FC = () => {
 		setTimerInterval(null)
 		setTimer(undefined)
 		setDuration(null)
-		setImagesCards(imagesBySize[size]
-			.concat(imagesBySize[size])
+
+		const characterBySize = theme === 'princess' ? princessBySize : villainBySize
+		setImagesCards([
+			...characterBySize[size],
+			...characterBySize[size]
+		]
 			.sort(() => Math.random() - 0.5)
-			.map((image) => ({ princessName: image, selected: false, visible: false })))
+			.map((image) => ({ characterName: image, selected: false, visible: false })))
 	}
 
 	const verifyEqualCards = () => {
@@ -97,8 +78,8 @@ const Board: React.FC = () => {
 
 		if (selectedCards.length === 2) {
 			const [card1, card2] = selectedCards
-			card1.visible = card1.princessName === card2.princessName
-			card2.visible = card1.princessName === card2.princessName
+			card1.visible = card1.characterName === card2.characterName
+			card2.visible = card1.characterName === card2.characterName
 
 			card1.selected = false
 			card2.selected = false
@@ -144,7 +125,7 @@ const Board: React.FC = () => {
 		if (timerInterval === null) {
 			const myTimer = timer || new Date()
 			setTimer(myTimer)
-			
+
 			setTimerInterval(
 				setInterval(() => {
 					const duracao = intervalToDuration({
@@ -160,30 +141,30 @@ const Board: React.FC = () => {
 	useEffect(() => {
 		randomizeImages()
 		setMoves(0)
-	}, [size, defeats])
+	}, [size, defeats, theme])
 
 	useEffect(() => {
 		checkCards()
 	}, [imagesCards])
 
 	return (
-		<S.Container>
+		<S.Container backgroundColor={themeColor.background}>
 			<S.Header>
-				<Label fontSize={50} color={Colors.red}>{translation('title')}</Label>
+				<Label fontSize={50} color={themeColor.dark}>{translation('title')}</Label>
 
 				<S.HeaderButtons>
 					<Button
-						backgroundColor={Colors.pink}
+						backgroundColor={themeColor.light}
 						onPress={handleReset}
 					>
-						<Label color={Colors.purple}>{translation('button.reset')}</Label>
+						<Label color={themeColor.dark}>{translation('button.reset')}</Label>
 					</Button>
 
 					<Button
-						backgroundColor={Colors.purple}
+						backgroundColor={themeColor.dark}
 						onPress={() => setOpenMenu(true)}
 					>
-						<Label color={Colors.pink}>{translation('button.newGame')}</Label>
+						<Label color={themeColor.light}>{translation('button.newGame')}</Label>
 					</Button>
 				</S.HeaderButtons>
 			</S.Header>
@@ -202,7 +183,7 @@ const Board: React.FC = () => {
 				{imagesCards.map((item, index) => (
 					<ButtonCard
 						key={index}
-						princessName={item.princessName}
+						characterName={item.characterName}
 						selected={item.selected}
 						visible={item.visible}
 						onPress={() => {
@@ -215,10 +196,10 @@ const Board: React.FC = () => {
 			</S.Board>
 
 			<S.Footer>
-				<Label color={Colors.purple}>{translation('label.time')}: {duration}</Label>
-				<Label color={Colors.purple}>{translation('label.moves')}: {moves}</Label>
-				<Label color={Colors.purple}>{translation('label.victory')}: {victories}</Label>
-				<Label color={Colors.purple}>{translation('label.defeat')}: {defeats}</Label>
+				<Label color={themeColor.dark}>{translation('label.time')}: {duration}</Label>
+				<Label color={themeColor.dark}>{translation('label.moves')}: {moves}</Label>
+				<Label color={themeColor.dark}>{translation('label.victory')}: {victories}</Label>
+				<Label color={themeColor.dark}>{translation('label.defeat')}: {defeats}</Label>
 			</S.Footer>
 
 			<ModalMenu open={openMenu} onClosed={handleCloseMenu} />
@@ -226,20 +207,20 @@ const Board: React.FC = () => {
 			<ModalVictory open={openModalVictory} onClosed={handleContinue}>
 				<S.ModalVictoryButtons>
 					<Button
-						backgroundColor={Colors.purple}
+						backgroundColor={themeColor.dark}
 						onPress={() => {
 							setOpenModalVictory(false)
 							setOpenMenu(true)
 							setDuration(null)
 						}}
 					>
-						<Label color={Colors.pink}>{translation('button.newGame')}</Label>
+						<Label color={themeColor.light}>{translation('button.newGame')}</Label>
 					</Button>
 					<Button
-						backgroundColor={Colors.pink}
+						backgroundColor={themeColor.light}
 						onPress={handleContinue}
 					>
-						<Label color={Colors.purple}>{translation('button.continue')}</Label>
+						<Label color={themeColor.dark}>{translation('button.continue')}</Label>
 					</Button>
 				</S.ModalVictoryButtons>
 			</ModalVictory>

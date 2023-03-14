@@ -1,11 +1,10 @@
-import styled, { css } from 'styled-components/native';
-import Colors from 'utils/colors'
+import styled from 'styled-components/native';
 
 type Memory = {
 	selected: boolean
 	visible: boolean
+	backgroundColor: string
 }
-
 
 export const Avatar = styled.Image`
 	width: 70px;
@@ -13,7 +12,7 @@ export const Avatar = styled.Image`
 `
 
 export const Container = styled.TouchableOpacity<Memory>`
-	background-color: ${Colors.gray};
+	background-color: ${({ backgroundColor }) => backgroundColor};
 	border-radius: 100px;
 
 	align-items: center;
@@ -23,12 +22,4 @@ export const Container = styled.TouchableOpacity<Memory>`
 	height: 75px;
 
 	margin: 5px;
-
-	${({ selected }) => selected && css`
-		background-color: ${Colors.red};
-	`}
-
-	${({ visible }) => visible && css`
-		background-color: ${Colors.pink};
-	`}
 `;

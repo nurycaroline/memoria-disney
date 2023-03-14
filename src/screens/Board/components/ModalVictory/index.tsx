@@ -2,7 +2,6 @@ import React from 'react';
 import Lottie from 'lottie-react-native';
 import Label from 'components/Label';
 import Modal from 'components/Modal';
-import Colors from 'utils/colors';
 import { ModalizeProps } from 'react-native-modalize';
 import { useTranslation } from 'react-i18next'
 
@@ -10,6 +9,7 @@ import AnimationVictoryTrophy from 'assets/animations/107653-trophy.json'
 import * as S from './styles';
 import { useRecoilValue } from 'recoil';
 import { movesState, durationSelector } from 'atoms/gameState';
+import { themeColorsState } from 'atoms/theme';
 
 type ModalVictoryProps = ModalizeProps & {
 	open: boolean
@@ -19,6 +19,7 @@ const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 	const { t: translation } = useTranslation()
 	const moves = useRecoilValue(movesState)
 	const duration = useRecoilValue(durationSelector)
+	const themeColor = useRecoilValue(themeColorsState)
 
 	return (
 		<Modal
@@ -28,7 +29,7 @@ const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 			HeaderComponent={
 				<Label
 					textAlign='center'
-					color={Colors.purple}
+					color={themeColor.dark}
 					fontSize={28}
 				>
 					Vitória!
@@ -43,13 +44,13 @@ const ModalVictory = ({ open, onClosed, children }: ModalVictoryProps) => {
 
 					<S.ModalContainerLabels>
 						<S.ModalLabel
-							color={Colors.purple}
+							color={themeColor.dark}
 							fontSize={18}
 						>
 							{translation('label.time')}: {duration}
 						</S.ModalLabel>
 						<S.ModalLabel
-							color={Colors.purple}
+							color={themeColor.dark}
 							fontSize={18}
 						>
 							{translation('label.moves')}: {moves}

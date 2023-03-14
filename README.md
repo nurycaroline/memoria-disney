@@ -19,7 +19,9 @@
 ## Sobre o projeto
 <div>
   <img src=".github/board.png" width=30% height=30%>
+  <img src=".github/board-dark.png" width=30% height=30%>
   <img src=".github/victory.png" width=30% height=30%>
+  <img src=".github/victory-dark.png" width=30% height=30%>
   <img src=".github/new.png" width=30% height=30%>
 <div>
 
@@ -55,7 +57,9 @@ Outros projetos:
 ## Recursos
 
 * Fonte: [Google Fonts - Princess Sofia](https://fonts.google.com/specimen/Princess+Sofia?query=princess)
-* Imagens Princesas: [Pinterest - Princess Collection](https://br.pinterest.com/nickissaurus/silueta-de-princesa-disney/princess-collection/)
+* Imagens:
+  * Princesas: [Pinterest - Princess Collection](https://br.pinterest.com/nickissaurus/silueta-de-princesa-disney/princess-collection/)
+  * Vilas: [Behance Giovanna Mariath - Villains](https://www.behance.net/gallery/76973317/Villains)
 * Animações:
   * [Lotties - Troféu](https://lottiefiles.com/107653-trophy)
   * [Lotties - Castelo](https://lottiefiles.com/112589-castle)

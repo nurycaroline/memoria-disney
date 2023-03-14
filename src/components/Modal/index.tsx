@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import Colors from 'utils/colors';
 import { Modalize, ModalizeProps } from 'react-native-modalize';
+import { themeColorsState } from 'atoms/theme';
+import { useRecoilValue } from 'recoil';
 
 type ModalProps = ModalizeProps & {
 	open: boolean
@@ -8,6 +9,7 @@ type ModalProps = ModalizeProps & {
 
 const Modal = ({ children, open, ...props }: ModalProps) => {
 	const modalizeRef = useRef<Modalize>();
+	const themeColor = useRecoilValue(themeColorsState)
 
 	useEffect(() => {
 		if (open) {
@@ -22,7 +24,7 @@ const Modal = ({ children, open, ...props }: ModalProps) => {
 			ref={modalizeRef}
 			adjustToContentHeight
 			overlayStyle={{
-				backgroundColor: Colors.purpleOpacity,
+				backgroundColor: themeColor.darkOpacity,
 			}}
 			{...props}
 		>

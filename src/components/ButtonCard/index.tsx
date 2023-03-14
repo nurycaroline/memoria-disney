@@ -1,15 +1,8 @@
+import { themeColorsState, themeState } from 'atoms/theme'
 import React from 'react'
-import { Text, Image, ImageSourcePropType } from 'react-native'
-
-import adormecida from 'assets/images/adormecida.png'
-import bela from 'assets/images/bela.png'
-import branca from 'assets/images/branca.png'
-import cinderela from 'assets/images/cinderela.png'
-import merida from 'assets/images/merida.png'
-import mulan from 'assets/images/mulan.png'
-import sereia from 'assets/images/sereia.png'
-import sininho from 'assets/images/sininho.png'
-import tiana from 'assets/images/tiana.png'
+import { useRecoilValue } from 'recoil'
+import Princess from './data/princess'
+import Villain from './data/villain'
 
 import * as S from './styles'
 
@@ -25,35 +18,54 @@ export enum PRINCESS_ENUM {
 	tiana = 'tiana',
 }
 
+export enum VILLAIN_ENUM {
+	copas = 'copas',
+	cruella = 'cruella',
+	gothel = 'gothel',
+	ma = 'ma',
+	malevola = 'malevola',
+	medusa = 'medusa',
+	mim = 'mim',
+	tremaine = 'tremaine',
+	yzma = 'yzma',
+}
+
 type ButtonCardProps = {
-	princessName: keyof typeof PRINCESS_ENUM
+	characterName: keyof typeof PRINCESS_ENUM | keyof typeof VILLAIN_ENUM
 	selected: boolean
 	visible: boolean
 	onPress: () => void
 }
 
-const PRINCESS_IMAGE: { [k: string]: ImageSourcePropType } = {
-	adormecida,
-	bela,
-	branca,
-	cinderela,
-	merida,
-	mulan,
-	sereia,
-	sininho,
-	tiana,
-}
 
-const ButtonCard = ({ princessName, selected, visible, onPress }: ButtonCardProps) => (
-	<S.Container selected={selected} visible={visible} onPress={onPress}>
-		{
-			(selected || visible) && (
-				<S.Avatar
-					source={PRINCESS_IMAGE[princessName]}
-				/>
-			)
-		}
-	</S.Container>
-)
+const ButtonCard = ({ characterName, selected, visible, onPress }: ButtonCardProps) => {
+	const theme = useRecoilValue(themeState)
+	const themeColor = useRecoilValue(themeColorsState)
+	const character = theme === 'princess' ? Princess : Villain
+
+	let backgroundColor = themeColor.light
+
+	if (selected || visible) {
+		backgroundColor = character[characterName]?.backgroundColor
+	}
+
+
+	return (
+		<S.Container
+			selected={selected}
+			visible={visible}
+			onPress={onPress}
+			backgroundColor={backgroundColor}
+		>
+			{
+				(selected || visible) && (
+					<S.Avatar
+						source={character[characterName]?.img}
+					/>
+				)
+			}
+		</S.Container>
+	)
+}
 
 export default ButtonCard;
