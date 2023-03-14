@@ -34,7 +34,7 @@ export default function App() {
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync()
-      // await music?.playAsync()
+      await music?.playAsync()
     }
   }, [appIsReady])
 
