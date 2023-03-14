@@ -27,7 +27,7 @@
         "foregroundImage": "./src/assets/adaptive-icon.png"
       },
       "versionCode": 1,
-      "package": "com.memoria"
+      "package": "com.nurycaroline.memoria"
     },
     "web": {
       "favicon": "./src/assets/icon.png"
