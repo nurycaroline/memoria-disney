@@ -60,6 +60,7 @@ const ButtonCard = ({ characterName, selected, visible, onPress }: ButtonCardPro
 			{
 				(selected || visible) && (
 					<S.Avatar
+						resizeMode="contain"
 						source={character[characterName]?.img}
 					/>
 				)

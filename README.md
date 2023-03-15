@@ -65,6 +65,7 @@ Outros projetos:
   * [Lotties - Castelo](https://lottiefiles.com/112589-castle)
 * Musicas:
   * Music by Slip.stream - [All Kinds Of Magic](https://slip.stream/tracks/bb777c13-80fd-4c68-94b2-d658fe2497bd)
+  * Music by Slip.stream - [Repressed Stress](https://slip.stream/tracks/f324b805-8e9d-404f-be67-213657340432)
 
 ## Configuração local
 

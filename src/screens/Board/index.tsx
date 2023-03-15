@@ -8,6 +8,7 @@ import ModalVictory from './components/ModalVictory';
 import { defeatsState, durationSelector, durationState, movesState, sizeState, victoriesState } from 'atoms/gameState';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useTranslation } from 'react-i18next'
+import { Audio } from 'expo-av'
 
 import * as S from './styles';
 import { intervalToDuration } from 'date-fns';
@@ -27,6 +28,7 @@ const Board: React.FC = () => {
 	const [imagesCards, setImagesCards] = useState<ImagesCards>([])
 	const [timerInterval, setTimerInterval] = useState<NodeJS.Timer | null>(null)
 	const [timer, setTimer] = useState<Date>()
+	const [music, setMusic] = useState<Audio.Sound>()
 
 	const [victories, setVictories] = useRecoilState(victoriesState)
 	const [defeats, setDefeats] = useRecoilState(defeatsState)
@@ -147,6 +149,26 @@ const Board: React.FC = () => {
 		checkCards()
 	}, [imagesCards])
 
+	useEffect(() => {
+		async function prepare() {
+			try {
+				music?.stopAsync()
+
+				const localSong = theme === 'princess'
+					? require('../../assets/music/All_Kinds_Of_Magic/music.mp3')
+					: require('../../assets/music/Repressed_Stress/music.mp3')
+
+				const { sound } = await Audio.Sound.createAsync(localSong)
+				await sound?.playAsync()
+				setMusic(sound)
+			} catch (e) {
+				console.warn(e)
+			}
+		}
+
+		prepare()
+	}, [theme])
+		
 	return (
 		<S.Container backgroundColor={themeColor.background}>
 			<S.Header>
@@ -185,7 +207,8 @@ const Board: React.FC = () => {
 						key={index}
 						characterName={item.characterName}
 						selected={item.selected}
-						visible={item.visible}
+						visible
+						// visible={item.visible}
 						onPress={() => {
 							handleCardPress(index)
 							setMoves(moves + 1)
