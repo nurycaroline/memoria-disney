@@ -207,8 +207,7 @@ const Board: React.FC = () => {
 						key={index}
 						characterName={item.characterName}
 						selected={item.selected}
-						visible
-						// visible={item.visible}
+						visible={item.visible}
 						onPress={() => {
 							handleCardPress(index)
 							setMoves(moves + 1)
