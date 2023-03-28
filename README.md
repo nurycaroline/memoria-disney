@@ -10,6 +10,8 @@
     Jogo da memoria com o tema de princesas da Disney
     <br/>
     <br/>
+    <a href="https://play.google.com/store/apps/details?id=com.nurycaroline.memoria">Demo</a>
+    .
     <a href="https://www.figma.com/community/file/1212020337394409085">Layout</a>
     .
     <a href="https://github.com/nurycaroline/memoria-disney/issues">Report Bug</a>
