@@ -39,7 +39,8 @@
     "start": "expo start --clear",
     "android": "expo start --clear --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "build": "npx eas build -p android"
   },
   "version": "1.0.0",
   "private": true,
