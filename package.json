@@ -4,7 +4,6 @@
     "date-fns": "^2.29.3",
     "expo": "^47.0.0",
     "expo-av": "~13.0.3",
-    "expo-font": "~11.0.1",
     "expo-localization": "~14.0.0",
     "expo-splash-screen": "~0.17.5",
     "i18next": "^22.4.10",
