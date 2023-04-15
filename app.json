@@ -19,14 +19,14 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.memoria-ts",
-      "buildNumber": "1.1.0"
+      "buildNumber": "2.1.0"
     },
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#75728D",
         "foregroundImage": "./src/assets/adaptive-icon.png"
       },
-      "versionCode": 3,
+      "versionCode": 4,
       "package": "com.nurycaroline.memoria"
     },
     "web": {
