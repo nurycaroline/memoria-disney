@@ -14,7 +14,7 @@ import * as S from './styles';
 import { intervalToDuration } from 'date-fns';
 import { princessBySize, villainBySize } from './imagesBySize';
 import { themeColorsState, themeState } from 'atoms/theme';
-import {  useInterstitialAd, TestIds } from 'react-native-google-mobile-ads';
+import { useInterstitialAd, TestIds } from 'react-native-google-mobile-ads';
 
 const adUnitId = __DEV__
 	? TestIds.INTERSTITIAL
@@ -183,9 +183,7 @@ const Board: React.FC = () => {
 
 
 	useEffect(() => {
-		if (!isLoaded) {
-			load();
-		}
+		load();
 	}, [load, isClosed]);
 
 	return (
