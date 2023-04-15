@@ -4,9 +4,11 @@ import { SafeAreaView } from 'react-native'
 import React, { useCallback, useState } from 'react'
 import * as ExpoSplashScreen from 'expo-splash-screen'
 import Splashscreen from 'screens/Splashscreen'
+import "intl";
+import 'intl-pluralrules';
+import './src/i18n'
 
 ExpoSplashScreen.preventAutoHideAsync()
-
 
 export default function App() {
   const [start, setStart] = useState(false)
