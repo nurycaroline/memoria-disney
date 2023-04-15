@@ -14,7 +14,11 @@ import * as S from './styles';
 import { intervalToDuration } from 'date-fns';
 import { princessBySize, villainBySize } from './imagesBySize';
 import { themeColorsState, themeState } from 'atoms/theme';
+import {  useInterstitialAd, TestIds } from 'react-native-google-mobile-ads';
 
+const adUnitId = __DEV__
+	? TestIds.INTERSTITIAL
+	: 'ca-app-pub-5905541003652167/5812688518';
 
 type ImagesCards = {
 	characterName: keyof typeof PRINCESS_ENUM | keyof typeof VILLAIN_ENUM
@@ -23,6 +27,10 @@ type ImagesCards = {
 }[]
 
 const Board: React.FC = () => {
+	const { isLoaded, isClosed, load, show: showAdd } = useInterstitialAd(adUnitId, {
+		requestNonPersonalizedAdsOnly: true,
+	});
+
 	const [openMenu, setOpenMenu] = useState(false)
 	const [openModalVictory, setOpenModalVictory] = useState(false)
 	const [imagesCards, setImagesCards] = useState<ImagesCards>([])
@@ -48,13 +56,17 @@ const Board: React.FC = () => {
 
 	const handleReset = () => {
 		setDefeats(defeats + 1)
+		showAdd()
 	}
 
-	const handleContinue = () => {
+	const handleContinue = async () => {
 		setOpenModalVictory(false)
 		randomizeImages()
 		setDuration(null)
 		setMoves(0)
+
+		await delay(500)
+		showAdd()
 	}
 
 	const randomizeImages = () => {
@@ -168,7 +180,14 @@ const Board: React.FC = () => {
 
 		prepare()
 	}, [theme])
-		
+
+
+	useEffect(() => {
+		if (!isLoaded) {
+			load();
+		}
+	}, [load, isClosed]);
+
 	return (
 		<S.Container backgroundColor={themeColor.background}>
 			<S.Header>
@@ -226,7 +245,8 @@ const Board: React.FC = () => {
 
 			<ModalMenu open={openMenu} onClosed={handleCloseMenu} />
 
-			<ModalVictory open={openModalVictory} onClosed={handleContinue}>
+			<ModalVictory open={openModalVictory}
+				onClosed={handleContinue}>
 				<S.ModalVictoryButtons>
 					<Button
 						backgroundColor={themeColor.dark}

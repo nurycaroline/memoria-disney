@@ -2,18 +2,17 @@ import Board from './src/screens/Board'
 import { RecoilRoot } from 'recoil'
 import { SafeAreaView } from 'react-native'
 import React, { useCallback, useState } from 'react'
-import * as SS from 'expo-splash-screen'
+import * as ExpoSplashScreen from 'expo-splash-screen'
 import Splashscreen from 'screens/Splashscreen'
 
-SS.preventAutoHideAsync()
+ExpoSplashScreen.preventAutoHideAsync()
 
-import './src/i18n'
 
 export default function App() {
   const [start, setStart] = useState(false)
 
   const onLayoutRootView = useCallback(async () => {
-    await SS.hideAsync()
+    await ExpoSplashScreen.hideAsync()
 
     setTimeout(() => {
       setStart(true)

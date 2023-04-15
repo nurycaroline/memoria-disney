@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.memoria-disney-ts",
+      "bundleIdentifier": "com.memoria-ts",
       "buildNumber": "1.1.0"
     },
     "android": {
@@ -37,5 +37,8 @@
         "projectId": "6fa5384d-d0fd-404b-ace4-da912f012bef"
       }
     }
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-5905541003652167~4420140824"
   }
 }
