@@ -1,6 +1,6 @@
 import Board from './src/screens/Board'
 import { RecoilRoot } from 'recoil'
-import { SafeAreaView } from 'react-native'
+import { SafeAreaView, StatusBar } from 'react-native'
 import React, { useCallback, useState } from 'react'
 import * as ExpoSplashScreen from 'expo-splash-screen'
 import Splashscreen from 'screens/Splashscreen'
@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     <RecoilRoot>
-      <SafeAreaView style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }} onLayout={onLayoutRootView}>
         {start ? <Board /> : <Splashscreen />}
       </SafeAreaView>
     </RecoilRoot>
